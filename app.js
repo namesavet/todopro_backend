@@ -3,18 +3,26 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
 var app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+
+
+const sequelize = require("./database/database.config");
+
+app.get("/",async(req,res) => {
+
+    try {
+        await sequelize.authenticate()
+        res.status(200).send("Connect to Database Succes")
+    } catch (error) {
+        res.status(404).send("Can't Connect to Database")
+    }
+
+});
 
 module.exports = app;
