@@ -25,4 +25,7 @@ app.get("/",async(req,res) => {
 
 });
 
+const StudentService = require("./routes/student");
+app.use("/student", StudentService);
+
 module.exports = app;
