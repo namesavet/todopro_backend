@@ -5,7 +5,7 @@ const Student = sequelize.define(
     "student",
     {
         StudentID: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             primaryKey: true,
         },
         Fullname: {
@@ -26,17 +26,11 @@ const Student = sequelize.define(
         Email: {
             type: DataTypes.STRING,
         },
-        Password_email: {
-            type: DataTypes.STRING,
-        },
         Username: {
             type: DataTypes.STRING,
         },
-        Password: {
-            type: DataTypes.STRING,
-        },
         Phone: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
         },
     },
      {
