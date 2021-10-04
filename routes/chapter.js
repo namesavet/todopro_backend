@@ -46,15 +46,17 @@ router.post('/create', async (req, res,) => {
   try {
     const {
         Chapter_name,
-        SubjectID ,
+        Status,
         StudentID,
+        SubjectID ,
         SemesterID} = req.body;
 
     const chapter = Chapter.build({
         ChapterID: uuidv4(),
         Chapter_name,
-        SubjectID ,
+        Status,
         StudentID,
+        SubjectID ,
         SemesterID
     });
 
@@ -76,8 +78,9 @@ router.put('/update', async (req, res,) => {
     const { 
         ChapterID,
         Chapter_name,
-        SubjectID ,
+        Status,
         StudentID,
+        SubjectID ,
         SemesterID
  } = req.body;
 
@@ -89,8 +92,9 @@ router.put('/update', async (req, res,) => {
 
     chapter.update({
         Chapter_name,
-        SubjectID ,
+        Status,
         StudentID,
+        SubjectID ,
         SemesterID
     })
 

@@ -11,12 +11,16 @@ const Chapter = sequelize.define(
         Chapter_name: {
             type: DataTypes.STRING,
         },
-        SubjectID: {
-            type: DataTypes.STRING,
-        },
+        Status:{
+			type:DataTypes.BOOLEAN,
+		},
         StudentID: {
             type: DataTypes.STRING,
         },
+        SubjectID: {
+            type: DataTypes.STRING,
+        },
+        
         SemesterID: {
             type: DataTypes.STRING,
         },

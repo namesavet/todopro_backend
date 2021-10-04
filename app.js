@@ -37,4 +37,13 @@ app.use("/chapter", ChapterService);
 const SemesterService = require("./routes/semester");
 app.use("/semester", SemesterService);
 
+const CalendarService = require("./routes/calendar");
+app.use("/calendar", CalendarService);
+
+const ScoreService = require("./routes/score");
+app.use("/score", ScoreService);
+
+const Grade_sumaryService = require("./routes/grade_summary");
+app.use("/grade_summary", Grade_sumaryService);
+
 module.exports = app;
