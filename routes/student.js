@@ -11,7 +11,7 @@ router.get('/', async (req, res,) => {
     const student = await Student.findAll();
 
     res.status(200).json({
-      message: "create Success",
+      message: "Success",
       student,
     });
   } catch (error) {
@@ -32,7 +32,7 @@ router.get('/:StudentID', async (req, res,) => {
     });
 
     res.status(200).json({
-      message: "create Success",
+      message: " Success",
       student,
     });
   } catch (error) {
@@ -93,7 +93,7 @@ router.put('/update', async (req, res,) => {
     })
 
     res.status(200).json({
-      message: "create Success",
+      message: "update Success",
       student,
     });
   } catch (error) {
@@ -102,6 +102,29 @@ router.put('/update', async (req, res,) => {
 
 });
 // delete
-router.delete('/', async (req, res,) => { });
+router.delete('/:StudentID', async (req, res,) => { 
+
+  
+  try {
+
+    const { StudentID } = req.params;
+
+    const student = await Student.findOne({
+      where: {
+        StudentID,
+      }
+    });
+
+    await student.destroy();
+
+    res.status(200).json({
+      message: " Success",
+      student,
+    });
+  } catch (error) {
+    res.status(504).send(error);
+  }
+
+});
 
 module.exports = router;

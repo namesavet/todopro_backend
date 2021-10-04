@@ -28,4 +28,13 @@ app.get("/",async(req,res) => {
 const StudentService = require("./routes/student");
 app.use("/student", StudentService);
 
+const SubjectService = require("./routes/subject");
+app.use("/subject", SubjectService);
+
+const ChapterService = require("./routes/chapter");
+app.use("/chapter", ChapterService);
+
+const SemesterService = require("./routes/semester");
+app.use("/semester", SemesterService);
+
 module.exports = app;
