@@ -20,14 +20,35 @@ router.get('/', async (req, res,) => {
 
 });
 // รับค่า
-router.get('/:StudentID', async (req, res,) => {
+router.get('/:SemesterID', async (req, res,) => {
 
   try {
-    const { StudentID } = req.params;
+    const { SemesterID } = req.params;
 
     const subject = await Subject.findAll({
       where: {
-        StudentID,
+        SemesterID,
+      }
+    });
+
+    res.status(200).json({
+      message: " Success",
+      subject,
+    });
+  } catch (error) {
+    res.status(504).send(error);
+  }
+
+});
+// รับค่า
+router.get('/findsubject/:SubjectID', async (req, res,) => {
+
+  try {
+    const { SubjectID } = req.params;
+    console.log(SubjectID);
+    const subject = await Subject.findAll({
+      where: {
+        SubjectID,
       }
     });
 
