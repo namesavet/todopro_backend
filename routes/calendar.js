@@ -41,6 +41,31 @@ router.get('/:SemesterID', async (req, res,) => {
 
 });
 
+
+
+// รับค่า
+router.get('/findnote/:NoteID', async (req, res,) => {
+
+  try {
+    const { NoteID } = req.params;
+    console.log(NoteID);
+    const calendar = await Calendar.findOne({
+      where: {
+        NoteID,
+      }
+    });
+
+    res.status(200).json({
+      message: " Success",
+      calendar,
+    });
+  } catch (error) {
+    res.status(504).send(error);
+  }
+
+});
+
+
 // create
 router.post('/create', async (req, res,) => {
   try {
@@ -84,7 +109,7 @@ router.put('/update', async (req, res,) => {
 
     const { 
         NoteID,
-         Note_title,
+        Note_title,
         Note_type,
         Note_location,
         Note_date,
