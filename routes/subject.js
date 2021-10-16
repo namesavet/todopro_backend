@@ -46,7 +46,7 @@ router.get('/findsubject/:SubjectID', async (req, res,) => {
   try {
     const { SubjectID } = req.params;
     console.log(SubjectID);
-    const subject = await Subject.findAll({
+    const subject = await Subject.findOne({
       where: {
         SubjectID,
       }
