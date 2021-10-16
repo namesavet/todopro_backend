@@ -121,10 +121,11 @@ router.post('/create', async (req, res,) => {
 
 });
 // update
-router.put('/update', async (req, res,) => {
+router.put('/update/:SubjectID', async (req, res,) => {
 
   try {
-
+    const { SubjectID }
+    = req.params
     const { 
       SubjectID, 
        Subject_name,
