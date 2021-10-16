@@ -124,10 +124,8 @@ router.post('/create', async (req, res,) => {
 router.put('/update/:SubjectID', async (req, res,) => {
 
   try {
-    const { SubjectID }
-    = req.params
+    const { SubjectID } = req.params
     const { 
-      SubjectID, 
        Subject_name,
         Intal_name,
         Teacher_name,
@@ -145,8 +143,7 @@ router.put('/update/:SubjectID', async (req, res,) => {
         Score_midterm,
         Score_final,
         Desired_grade,
-        StudentID,
-        SemesterID,
+       
       } = req.body;
 
     const subject = await Subject.findOne({
@@ -173,8 +170,6 @@ router.put('/update/:SubjectID', async (req, res,) => {
         Score_midterm,
         Score_final,
         Desired_grade,
-        StudentID,
-        SemesterID,
  
     })
 
