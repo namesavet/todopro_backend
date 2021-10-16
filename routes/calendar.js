@@ -70,26 +70,26 @@ router.get('/findnote/:NoteID', async (req, res,) => {
 router.post('/create', async (req, res,) => {
   try {
     const {
-        Note_title,
-        Note_type,
-        Note_location,
-        Note_date,
-        Note_time,
-        Note_detail,
-        StudentID,
-        SemesterID,} = req.body;
+      Note_title,
+      Note_type,
+      Note_location,
+      Note_date,
+      Note_time,
+      Note_detail,
+      StudentID,
+      SemesterID, } = req.body;
 
-    const calendar = Calendar.build({  
-        NoteID: uuidv4(),
-        Note_title,
-    
-        Note_type,
-        Note_location,
-        Note_date,
-        Note_time,
-        Note_detail,
-        StudentID,
-        SemesterID,
+    const calendar = Calendar.build({
+      NoteID: uuidv4(),
+      Note_title,
+
+      Note_type,
+      Note_location,
+      Note_date,
+      Note_time,
+      Note_detail,
+      StudentID,
+      SemesterID,
     });
 
     calendar.save();
@@ -103,37 +103,36 @@ router.post('/create', async (req, res,) => {
 
 });
 // update
-router.put('/update', async (req, res,) => {
+router.put('/update/:NoteID', async (req, res,) => {
 
   try {
+    const { NoteID }
+      = req.params
+    const {
 
-    const { 
-        NoteID,
-        Note_title,
-        Note_type,
-        Note_location,
-        Note_date,
-        Note_time,
-        Note_detail,
-        StudentID,
-        SemesterID,
- } = req.body;
+      Note_title,
+      Note_type,
+      Note_location,
+      Note_date,
+      Note_time,
+      Note_detail,
 
-    const calendar= await Calendar.findOne({
+    } = req.body;
+
+    const calendar = await Calendar.findOne({
       where: {
         NoteID,
       }
     });
 
     calendar.update({
-        Note_title,
-        Note_type,
-        Note_location,
-        Note_date,
-        Note_time,
-        Note_detail,
-        StudentID,
-        SemesterID,
+      Note_title,
+      Note_type,
+      Note_location,
+      Note_date,
+      Note_time,
+      Note_detail,
+      
     })
 
     res.status(200).json({
@@ -146,9 +145,9 @@ router.put('/update', async (req, res,) => {
 
 });
 // delete
-router.delete('/:NoteID', async (req, res,) => { 
+router.delete('/:NoteID', async (req, res,) => {
 
-  
+
   try {
 
     const { NoteID } = req.params;
