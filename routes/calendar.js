@@ -145,7 +145,7 @@ router.put('/update/:NoteID', async (req, res,) => {
 
 });
 // delete
-router.delete('/:NoteID', async (req, res,) => {
+router.delete('/delete/:NoteID', async (req, res,) => {
 
 
   try {
