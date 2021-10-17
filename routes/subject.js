@@ -184,7 +184,7 @@ router.put('/update/:SubjectID', async (req, res,) => {
 });
 
 // delete
-router.delete('/:SubjectID', async (req, res,) => { 
+router.delete('/delete/:SubjectID', async (req, res,) => { 
 
   
   try {
