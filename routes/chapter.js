@@ -20,7 +20,7 @@ router.get('/', async (req, res,) => {
 
 });
 // รับค่า
-router.get('/:SubjectID', async (req, res,) => {
+router.get('/findchapter/:SubjectID', async (req, res,) => {
 
   try {
     const { SubjectID } = req.params;
