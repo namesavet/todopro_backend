@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Subject = require("../model/subject.model");
+const Chapter = require("../model/chapter.model");
 const { v4: uuidv4 } = require("uuid")
 
 // รับค่า
@@ -64,50 +65,50 @@ router.get('/findsubject/:SubjectID', async (req, res,) => {
 // create
 router.post('/create', async (req, res,) => {
   try {
-    const { 
-        Subject_name,
-        Intal_name,
-        Teacher_name,
-        IDsubject,
-        Credit,
-        GradeA,
-        GradeBplus,
-        GradeB,
-        GradeCplus,
-        GradeC,
-        GradeDplus,
-        GradeD,
-        Date_midterm_exam,
-        Date_final_exam,
-        Score_midterm,
-        Score_final,
-        Desired_grade,
-        StudentID,
-        SemesterID,
-        } = req.body;
+    const {
+      Subject_name,
+      Intal_name,
+      Teacher_name,
+      IDsubject,
+      Credit,
+      GradeA,
+      GradeBplus,
+      GradeB,
+      GradeCplus,
+      GradeC,
+      GradeDplus,
+      GradeD,
+      Date_midterm_exam,
+      Date_final_exam,
+      Score_midterm,
+      Score_final,
+      Desired_grade,
+      StudentID,
+      SemesterID,
+    } = req.body;
 
     const subject = Subject.build({
-        SubjectID: uuidv4 (),
-        Subject_name,
-        Intal_name,
-        Teacher_name,
-        IDsubject,
-        Credit,
-        GradeA,
-        GradeBplus,
-        GradeB,
-        GradeCplus,
-        GradeC,
-        GradeDplus,
-        GradeD,
-        Date_midterm_exam,
-        Date_final_exam,
-        Score_midterm,
-        Score_final,
-        Desired_grade,
-        StudentID,
-        SemesterID,
-     
+      SubjectID: uuidv4(),
+      Subject_name,
+      Intal_name,
+      Teacher_name,
+      IDsubject,
+      Credit,
+      GradeA,
+      GradeBplus,
+      GradeB,
+      GradeCplus,
+      GradeC,
+      GradeDplus,
+      GradeD,
+      Date_midterm_exam,
+      Date_final_exam,
+      Score_midterm,
+      Score_final,
+      Desired_grade,
+      StudentID,
+      SemesterID,
+
     });
 
     subject.save();
@@ -125,26 +126,26 @@ router.put('/update/:SubjectID', async (req, res,) => {
 
   try {
     const { SubjectID } = req.params
-    const { 
-       Subject_name,
-        Intal_name,
-        Teacher_name,
-        IDsubject,
-        Credit,
-        GradeA,
-        GradeBplus,
-        GradeB,
-        GradeCplus,
-        GradeC,
-        GradeDplus,
-        GradeD,
-        Date_midterm_exam,
-        Date_final_exam,
-        Score_midterm,
-        Score_final,
-        Desired_grade,
-       
-      } = req.body;
+    const {
+      Subject_name,
+      Intal_name,
+      Teacher_name,
+      IDsubject,
+      Credit,
+      GradeA,
+      GradeBplus,
+      GradeB,
+      GradeCplus,
+      GradeC,
+      GradeDplus,
+      GradeD,
+      Date_midterm_exam,
+      Date_final_exam,
+      Score_midterm,
+      Score_final,
+      Desired_grade,
+
+    } = req.body;
 
     const subject = await Subject.findOne({
       where: {
@@ -153,24 +154,24 @@ router.put('/update/:SubjectID', async (req, res,) => {
     });
 
     subject.update({
-        Subject_name,
-        Intal_name,
-        Teacher_name,
-        IDsubject,
-        Credit,
-        GradeA,
-        GradeBplus,
-        GradeB,
-        GradeCplus,
-        GradeC,
-        GradeDplus,
-        GradeD,
-        Date_midterm_exam,
-        Date_final_exam,
-        Score_midterm,
-        Score_final,
-        Desired_grade,
- 
+      Subject_name,
+      Intal_name,
+      Teacher_name,
+      IDsubject,
+      Credit,
+      GradeA,
+      GradeBplus,
+      GradeB,
+      GradeCplus,
+      GradeC,
+      GradeDplus,
+      GradeD,
+      Date_midterm_exam,
+      Date_final_exam,
+      Score_midterm,
+      Score_final,
+      Desired_grade,
+
     })
 
     res.status(200).json({
@@ -184,9 +185,9 @@ router.put('/update/:SubjectID', async (req, res,) => {
 });
 
 // delete
-router.delete('/delete/:SubjectID', async (req, res,) => { 
+router.delete('/delete/:SubjectID', async (req, res,) => {
 
-  
+
   try {
 
     const { SubjectID } = req.params;
@@ -196,15 +197,22 @@ router.delete('/delete/:SubjectID', async (req, res,) => {
         SubjectID,
       }
     });
-
+   
     await subject.destroy();
+    
+    await Chapter.destroy({
+      where: {
+        SubjectID
+      },
+    });
 
     res.status(200).json({
       message: " Success",
-      subject,
     });
   } catch (error) {
+    console.log(error.message);
     res.status(504).send(error);
+
   }
 
 });
