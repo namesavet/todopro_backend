@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Subject = require("../model/subject.model");
 const Chapter = require("../model/chapter.model");
+const Score = require("../model/score.model");
 const { v4: uuidv4 } = require("uuid")
 
 // รับค่า
@@ -201,6 +202,11 @@ router.delete('/delete/:SubjectID', async (req, res,) => {
     await subject.destroy();
     
     await Chapter.destroy({
+      where: {
+        SubjectID
+      },
+    });
+    await Score.destroy({
       where: {
         SubjectID
       },
