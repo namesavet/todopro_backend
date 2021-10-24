@@ -96,7 +96,7 @@ router.put('/update', async (req, res,) => {
 
 });
 // delete
-router.delete('/:SemesterID', async (req, res,) => {
+router.delete('/delete/:SemesterID', async (req, res,) => {
 
 
     try {
