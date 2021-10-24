@@ -41,6 +41,27 @@ router.get('/:SubjectID', async (req, res,) => {
 
 });
 
+router.get('/fineSemester/:SemesterID', async (req, res,) => {
+
+    try {
+        const { SemesterID } = req.params;
+
+        const score = await Score.findAll({
+            where: {
+                SemesterID,
+            }
+        });
+
+        res.status(200).json({
+            message: " Success",
+            score,
+        });
+    } catch (error) {
+        res.status(504).send(error);
+    }
+
+});
+
 // create
 router.post('/create', async (req, res,) => {
     try {

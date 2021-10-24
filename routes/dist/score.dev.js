@@ -4,27 +4,27 @@ var express = require('express');
 
 var router = express.Router();
 
-var Chapter = require("../model/chapter.model");
+var Score = require("../model/score.model");
 
 var _require = require("uuid"),
     uuidv4 = _require.v4; // รับค่า
 
 
 router.get('/', function _callee(req, res) {
-  var chapter;
+  var score;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
           _context.next = 3;
-          return regeneratorRuntime.awrap(Chapter.findAll());
+          return regeneratorRuntime.awrap(Score.findAll());
 
         case 3:
-          chapter = _context.sent;
+          score = _context.sent;
           res.status(200).json({
             message: " Success",
-            chapter: chapter
+            score: score
           });
           _context.next = 10;
           break;
@@ -42,8 +42,8 @@ router.get('/', function _callee(req, res) {
   }, null, null, [[0, 7]]);
 }); // รับค่า
 
-router.get('/findchapter/:SubjectID', function _callee2(req, res) {
-  var SubjectID, chapter;
+router.get('/:SubjectID', function _callee2(req, res) {
+  var SubjectID, score;
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
@@ -51,17 +51,17 @@ router.get('/findchapter/:SubjectID', function _callee2(req, res) {
           _context2.prev = 0;
           SubjectID = req.params.SubjectID;
           _context2.next = 4;
-          return regeneratorRuntime.awrap(Chapter.findAll({
+          return regeneratorRuntime.awrap(Score.findAll({
             where: {
               SubjectID: SubjectID
             }
           }));
 
         case 4:
-          chapter = _context2.sent;
+          score = _context2.sent;
           res.status(200).json({
             message: " Success",
-            chapter: chapter
+            score: score
           });
           _context2.next = 11;
           break;
@@ -77,10 +77,9 @@ router.get('/findchapter/:SubjectID', function _callee2(req, res) {
       }
     }
   }, null, null, [[0, 8]]);
-}); // รับค่า
-
-router.get('/findchapterSemester/:SemesterID', function _callee3(req, res) {
-  var SemesterID, chapter;
+});
+router.get('/fineSemester/:SemesterID', function _callee3(req, res) {
+  var SemesterID, score;
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
@@ -88,17 +87,17 @@ router.get('/findchapterSemester/:SemesterID', function _callee3(req, res) {
           _context3.prev = 0;
           SemesterID = req.params.SemesterID;
           _context3.next = 4;
-          return regeneratorRuntime.awrap(Chapter.findAll({
+          return regeneratorRuntime.awrap(Score.findAll({
             where: {
               SemesterID: SemesterID
             }
           }));
 
         case 4:
-          chapter = _context3.sent;
+          score = _context3.sent;
           res.status(200).json({
             message: " Success",
-            chapter: chapter
+            score: score
           });
           _context3.next = 11;
           break;
@@ -117,26 +116,27 @@ router.get('/findchapterSemester/:SemesterID', function _callee3(req, res) {
 }); // create
 
 router.post('/create', function _callee4(req, res) {
-  var _req$body, Chapter_name, Status, StudentID, SubjectID, SemesterID, chapter;
+  var _req$body, Score_title, Get_point, Full_point, SubjectID, StudentID, SemesterID, score;
 
   return regeneratorRuntime.async(function _callee4$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
           try {
-            _req$body = req.body, Chapter_name = _req$body.Chapter_name, Status = _req$body.Status, StudentID = _req$body.StudentID, SubjectID = _req$body.SubjectID, SemesterID = _req$body.SemesterID;
-            chapter = Chapter.build({
-              ChapterID: uuidv4(),
-              Chapter_name: Chapter_name,
-              Status: Status,
-              StudentID: StudentID,
+            _req$body = req.body, Score_title = _req$body.Score_title, Get_point = _req$body.Get_point, Full_point = _req$body.Full_point, SubjectID = _req$body.SubjectID, StudentID = _req$body.StudentID, SemesterID = _req$body.SemesterID;
+            score = Score.build({
+              ScoreID: uuidv4(),
+              Score_title: Score_title,
+              Get_point: Get_point,
+              Full_point: Full_point,
               SubjectID: SubjectID,
+              StudentID: StudentID,
               SemesterID: SemesterID
             });
-            chapter.save();
+            score.save();
             res.status(200).json({
               message: "create Success",
-              data: chapter
+              data: score
             });
           } catch (error) {
             res.status(504).send(error);
@@ -151,33 +151,35 @@ router.post('/create', function _callee4(req, res) {
 }); // update
 
 router.put('/update', function _callee5(req, res) {
-  var _req$body2, ChapterID, Chapter_name, Status, StudentID, SubjectID, SemesterID, chapter;
+  var _req$body2, ScoreID, Score_title, Get_point, Full_point, SubjectID, StudentID, SemesterID, score;
 
   return regeneratorRuntime.async(function _callee5$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
         case 0:
           _context5.prev = 0;
-          _req$body2 = req.body, ChapterID = _req$body2.ChapterID, Chapter_name = _req$body2.Chapter_name, Status = _req$body2.Status, StudentID = _req$body2.StudentID, SubjectID = _req$body2.SubjectID, SemesterID = _req$body2.SemesterID;
+          _req$body2 = req.body, ScoreID = _req$body2.ScoreID, Score_title = _req$body2.Score_title, Get_point = _req$body2.Get_point, Full_point = _req$body2.Full_point, SubjectID = _req$body2.SubjectID, StudentID = _req$body2.StudentID, SemesterID = _req$body2.SemesterID;
           _context5.next = 4;
-          return regeneratorRuntime.awrap(Chapter.findOne({
+          return regeneratorRuntime.awrap(Score.findOne({
             where: {
-              ChapterID: ChapterID
+              ScoreID: ScoreID
             }
           }));
 
         case 4:
-          chapter = _context5.sent;
-          chapter.update({
-            Chapter_name: Chapter_name,
-            Status: Status,
-            StudentID: StudentID,
+          score = _context5.sent;
+          score.update({
+            ScoreID: uuidv4(),
+            Score_title: Score_title,
+            Get_point: Get_point,
+            Full_point: Full_point,
             SubjectID: SubjectID,
+            StudentID: StudentID,
             SemesterID: SemesterID
           });
           res.status(200).json({
             message: "update Success",
-            chapter: chapter
+            score: score
           });
           _context5.next = 12;
           break;
@@ -195,30 +197,30 @@ router.put('/update', function _callee5(req, res) {
   }, null, null, [[0, 9]]);
 }); // delete
 
-router["delete"]('/delete/:ChapterID', function _callee6(req, res) {
-  var ChapterID, chapter;
+router["delete"]('/delete/:ScoreID', function _callee6(req, res) {
+  var ScoreID, score;
   return regeneratorRuntime.async(function _callee6$(_context6) {
     while (1) {
       switch (_context6.prev = _context6.next) {
         case 0:
           _context6.prev = 0;
-          ChapterID = req.params.ChapterID;
+          ScoreID = req.params.ScoreID;
           _context6.next = 4;
-          return regeneratorRuntime.awrap(Chapter.findOne({
+          return regeneratorRuntime.awrap(Score.findOne({
             where: {
-              ChapterID: ChapterID
+              ScoreID: ScoreID
             }
           }));
 
         case 4:
-          chapter = _context6.sent;
+          score = _context6.sent;
           _context6.next = 7;
-          return regeneratorRuntime.awrap(chapter.destroy());
+          return regeneratorRuntime.awrap(score.destroy());
 
         case 7:
           res.status(200).json({
             message: " Success",
-            chapter: chapter
+            score: score
           });
           _context6.next = 13;
           break;

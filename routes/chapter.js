@@ -41,6 +41,28 @@ router.get('/findchapter/:SubjectID', async (req, res,) => {
 
 });
 
+// รับค่า
+router.get('/findchapterSemester/:SemesterID', async (req, res,) => {
+
+  try {
+    const { SemesterID } = req.params;
+
+    const chapter = await Chapter.findAll({
+      where: {
+        SemesterID,
+      }
+    });
+
+    res.status(200).json({
+      message: " Success",
+      chapter,
+    });
+  } catch (error) {
+    res.status(504).send(error);
+  }
+
+});
+
 // create
 router.post('/create', async (req, res,) => {
   try {
