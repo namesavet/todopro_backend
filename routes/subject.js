@@ -122,79 +122,42 @@ router.post('/create', async (req, res,) => {
   }
 
 });
-router.post('/createWithId/:SubjectID', async (req, res,) => {
+router.post('/createWithId/:addSubjectID', async (req, res,) => {
   try {
-    const { SubjectID } = req.params
-    const {
-      Subject_name,
-      Intal_name,
-      Teacher_name,
-      IDsubject,
-      Credit,
-      GradeA,
-      GradeBplus,
-      GradeB,
-      GradeCplus,
-      GradeC,
-      GradeDplus,
-      GradeD,
-      Date_midterm_exam,
-      Date_final_exam,
-      Score_midterm,
-      Score_final,
-      Desired_grade,
-      StudentID,
-      SemesterID,
-    } = req.body;
+    const { addSubjectID } = req.params
 
     const subject = await Subject.findOne({
       where: {
-        SubjectID,
+        SubjectID: addSubjectID,
+
       }
-    });
+    })
 
-    subject.build({
-      SubjectID: uuidv4(),
-      Subject_name,
-      Intal_name,
-      Teacher_name,
-      IDsubject,
-      Credit,
-      GradeA,
-      GradeBplus,
-      GradeB,
-      GradeCplus,
-      GradeC,
-      GradeDplus,
-      GradeD,
-      Date_midterm_exam,
-      Date_final_exam,
-      Score_midterm,
-      Score_final,
-      Desired_grade,
-      StudentID,
-      SemesterID,
-
-    });
-    const {
-      Chapter_name,
-      Status,
-       } = req.body;
-
-
-    Chapter.build({
-      ChapterID: uuidv4(),
-      Chapter_name,
-      Status,
-      StudentID,
-      SubjectID,
-      SemesterID,
+    const chapter = await Chapter.findAll({
       where: {
-        SubjectID
-      },
+        SubjectID: addSubjectID,
+      }
+    })
+    const { SubjectID, ...dataSubject } = subject.dataValues
+    const addSubject = Subject.build({
+      SubjectID: uuidv4(),
+      ...dataSubject,
     });
 
-    subject.save();
+    addSubject.save();
+
+    for (const iterator of chapter) { // วนค่าทั้งหมดของchapter แล้วadd เข้าไปใหม่
+      const { ChapterID, SubjectID, ...dataChapter } = iterator.dataValues 
+      const addChapter = Chapter.build({
+        ChapterID: uuidv4(),
+        SubjectID: addSubject.SubjectID,
+        ...dataChapter,//ค่าทั้งหมดจะถูกเก็บอยู่ในนี้
+      });
+      addChapter.save();
+    }
+
+
+
     res.status(200).json({
       message: "create Success",
       data: subject,

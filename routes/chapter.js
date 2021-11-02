@@ -67,19 +67,19 @@ router.get('/findchapterSemester/:SemesterID', async (req, res,) => {
 router.post('/create', async (req, res,) => {
   try {
     const {
-        Chapter_name,
-        Status,
-        StudentID,
-        SubjectID ,
-        SemesterID} = req.body;
+      Chapter_name,
+      Status,
+      StudentID,
+      SubjectID,
+      SemesterID } = req.body;
 
     const chapter = Chapter.build({
-        ChapterID: uuidv4(),
-        Chapter_name,
-        Status,
-        StudentID,
-        SubjectID ,
-        SemesterID
+      ChapterID: uuidv4(),
+      Chapter_name,
+      Status,
+      StudentID,
+      SubjectID,
+      SemesterID
     });
 
     chapter.save();
@@ -97,14 +97,14 @@ router.put('/update', async (req, res,) => {
 
   try {
 
-    const { 
-        ChapterID,
-        Chapter_name,
-        Status,
-        StudentID,
-        SubjectID ,
-        SemesterID
- } = req.body;
+    const {
+      ChapterID,
+      Chapter_name,
+      Status,
+      StudentID,
+      SubjectID,
+      SemesterID
+    } = req.body;
 
     const chapter = await Chapter.findOne({
       where: {
@@ -113,11 +113,39 @@ router.put('/update', async (req, res,) => {
     });
 
     chapter.update({
-        Chapter_name,
-        Status,
-        StudentID,
-        SubjectID ,
-        SemesterID
+      Chapter_name,
+      Status,
+      StudentID,
+      SubjectID,
+      SemesterID
+    })
+
+    res.status(200).json({
+      message: "update Success",
+      chapter,
+    });
+  } catch (error) {
+    res.status(504).send(error);
+  }
+
+});
+
+router.put('/updateStatus/:ChapterID', async (req, res,) => {
+
+  try {
+
+    const {ChapterID,} = req.params;
+
+    const {Status,} = req.body;
+
+    const chapter = await Chapter.findOne({
+      where: {
+        ChapterID,
+      }
+    });
+
+    chapter.update({
+      Status, 
     })
 
     res.status(200).json({
@@ -133,11 +161,10 @@ router.put('/update', async (req, res,) => {
 
 
 
-
 // delete
-router.delete('/delete/:ChapterID', async (req, res,) => { 
+router.delete('/delete/:ChapterID', async (req, res,) => {
 
-  
+
   try {
 
     const { ChapterID } = req.params;
