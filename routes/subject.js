@@ -122,6 +122,89 @@ router.post('/create', async (req, res,) => {
   }
 
 });
+router.post('/createWithId/:SubjectID', async (req, res,) => {
+  try {
+    const { SubjectID } = req.params
+    const {
+      Subject_name,
+      Intal_name,
+      Teacher_name,
+      IDsubject,
+      Credit,
+      GradeA,
+      GradeBplus,
+      GradeB,
+      GradeCplus,
+      GradeC,
+      GradeDplus,
+      GradeD,
+      Date_midterm_exam,
+      Date_final_exam,
+      Score_midterm,
+      Score_final,
+      Desired_grade,
+      StudentID,
+      SemesterID,
+    } = req.body;
+
+    const subject = await Subject.findOne({
+      where: {
+        SubjectID,
+      }
+    });
+
+    subject.build({
+      SubjectID: uuidv4(),
+      Subject_name,
+      Intal_name,
+      Teacher_name,
+      IDsubject,
+      Credit,
+      GradeA,
+      GradeBplus,
+      GradeB,
+      GradeCplus,
+      GradeC,
+      GradeDplus,
+      GradeD,
+      Date_midterm_exam,
+      Date_final_exam,
+      Score_midterm,
+      Score_final,
+      Desired_grade,
+      StudentID,
+      SemesterID,
+
+    });
+    const {
+      Chapter_name,
+      Status,
+       } = req.body;
+
+
+    Chapter.build({
+      ChapterID: uuidv4(),
+      Chapter_name,
+      Status,
+      StudentID,
+      SubjectID,
+      SemesterID,
+      where: {
+        SubjectID
+      },
+    });
+
+    subject.save();
+    res.status(200).json({
+      message: "create Success",
+      data: subject,
+    });
+  } catch (error) {
+    res.status(504).send(error);
+  }
+
+});
+
 // update
 router.put('/update/:SubjectID', async (req, res,) => {
 
@@ -198,9 +281,9 @@ router.delete('/delete/:SubjectID', async (req, res,) => {
         SubjectID,
       }
     });
-   
+
     await subject.destroy();
-    
+
     await Chapter.destroy({
       where: {
         SubjectID
