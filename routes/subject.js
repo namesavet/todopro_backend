@@ -63,6 +63,27 @@ router.get('/findsubject/:SubjectID', async (req, res,) => {
   }
 
 });
+
+router.get('/studentsubject/:StudentID', async (req, res,) => {
+
+  try {
+    const { StudentID } = req.params;
+    console.log(StudentID);
+    const subject = await Subject.findAll({
+      where: {
+        StudentID,
+      }
+    });
+
+    res.status(200).json({
+      message: " Success",
+      subject,
+    });
+  } catch (error) {
+    res.status(504).send(error);
+  }
+
+});
 // create
 router.post('/create', async (req, res,) => {
   try {
