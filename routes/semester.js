@@ -20,14 +20,14 @@ router.get('/', async (req, res,) => {
 
 });
 // รับค่า
-router.get('/:StudentID', async (req, res,) => {
+router.get('/:uid', async (req, res,) => {
 
     try {
-        const { StudentID } = req.params;
+        const { uid } = req.params;
 
         const semester = await Semester.findAll({
             where: {
-                StudentID,
+                uid,
             }
         });
 
