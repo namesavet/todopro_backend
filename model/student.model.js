@@ -23,15 +23,10 @@ const Student = sequelize.define(
         University: {
             type: DataTypes.STRING,
         },
-        Email: {
+        uid: {
             type: DataTypes.STRING,
         },
-        Username: {
-            type: DataTypes.STRING,
-        },
-        Phone: {
-            type: DataTypes.STRING,
-        },
+        
     },
      {
     createdAt: false,

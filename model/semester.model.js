@@ -11,7 +11,7 @@ const Semester = sequelize.define(
         Semester_name: {
             type: DataTypes.STRING,
         },
-        StudentID: {
+        uid: {
             type: DataTypes.STRING,
         },       
     },

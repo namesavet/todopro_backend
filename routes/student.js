@@ -20,14 +20,36 @@ router.get('/', async (req, res,) => {
 
 });
 // รับค่า
-router.get('/:StudentID', async (req, res,) => {
+// router.get('/:StudentID', async (req, res,) => {
+
+//   try {
+//     const { StudentID } = req.params;
+
+//     const student = await Student.findOne({
+//       where: {
+//         StudentID,
+//       }
+//     });
+
+//     res.status(200).json({
+//       message: " Success",
+//       student,
+//     });
+//   } catch (error) {
+//     res.status(504).send(error);
+//   }
+
+// });
+
+// รับค่า
+router.get('/findStudentID/:uid', async (req, res,) => {
 
   try {
-    const { StudentID } = req.params;
+    const { uid } = req.params;
 
     const student = await Student.findOne({
       where: {
-        StudentID,
+        uid,
       }
     });
 
@@ -41,10 +63,11 @@ router.get('/:StudentID', async (req, res,) => {
 
 });
 
+
 // create
 router.post('/create', async (req, res,) => {
   try {
-    const { StudentID, Fullname, Name, Major, Faculty, University, Email, Username, Phone } = req.body;
+    const { StudentID, Fullname, Name, Major, Faculty, University,uid } = req.body;
 
     const student = Student.build({
       StudentID,
@@ -53,9 +76,7 @@ router.post('/create', async (req, res,) => {
       Major,
       Faculty,
       University,
-      Email,
-      Username,
-      Phone
+      uid
     });
 
     student.save();
@@ -73,7 +94,7 @@ router.put('/update', async (req, res,) => {
 
   try {
 
-    const { StudentID, Fullname, Name, Major, Faculty, University, Email, Username, Phone } = req.body;
+    const { StudentID, Fullname, Name, Major, Faculty, University } = req.body;
 
     const student = await Student.findOne({
       where: {
@@ -87,10 +108,8 @@ router.put('/update', async (req, res,) => {
       Name,
       Major,
       Faculty,
-      University,
-      Email,
-      Username,
-      Phone
+      University
+      
     })
 
     res.status(200).json({
