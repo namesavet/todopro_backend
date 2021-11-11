@@ -41,6 +41,29 @@ router.get('/:StudentID', async (req, res,) => {
 
 });
 
+// รับค่า
+router.get('/getSemester/:uid', async (req, res,) => {
+
+    try {
+        const { uid } = req.params;
+
+        const semester = await Semester.findOne({
+            where: {
+                uid,
+            }
+        });
+
+        res.status(200).json({
+            message: " Success",
+            semester,
+        });
+    } catch (error) {
+        res.status(504).send(error);
+    }
+
+});
+
+
 // create
 router.post('/create', async (req, res,) => {
     try {
