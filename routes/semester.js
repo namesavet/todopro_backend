@@ -46,12 +46,12 @@ router.post('/create', async (req, res,) => {
     try {
         const {
             Semester_name,
-            StudentID, } = req.body;
+            uid, } = req.body;
 
         const semester = Semester.build({
             SemesterID: uuidv4(),
             Semester_name,
-            StudentID,
+            uid,
         });
 
         semester.save();
