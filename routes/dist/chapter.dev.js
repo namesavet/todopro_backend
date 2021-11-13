@@ -193,31 +193,30 @@ router.put('/update', function _callee5(req, res) {
       }
     }
   }, null, null, [[0, 9]]);
-}); // delete
-
-router["delete"]('/delete/:ChapterID', function _callee6(req, res) {
-  var ChapterID, chapter;
+});
+router.put('/updateStatus/:ChapterID', function _callee6(req, res) {
+  var ChapterID, Status, chapter;
   return regeneratorRuntime.async(function _callee6$(_context6) {
     while (1) {
       switch (_context6.prev = _context6.next) {
         case 0:
           _context6.prev = 0;
           ChapterID = req.params.ChapterID;
-          _context6.next = 4;
+          Status = req.body.Status;
+          _context6.next = 5;
           return regeneratorRuntime.awrap(Chapter.findOne({
             where: {
               ChapterID: ChapterID
             }
           }));
 
-        case 4:
+        case 5:
           chapter = _context6.sent;
-          _context6.next = 7;
-          return regeneratorRuntime.awrap(chapter.destroy());
-
-        case 7:
+          chapter.update({
+            Status: Status
+          });
           res.status(200).json({
-            message: " Success",
+            message: "update Success",
             chapter: chapter
           });
           _context6.next = 13;
@@ -231,6 +230,47 @@ router["delete"]('/delete/:ChapterID', function _callee6(req, res) {
         case 13:
         case "end":
           return _context6.stop();
+      }
+    }
+  }, null, null, [[0, 10]]);
+}); // delete
+
+router["delete"]('/delete/:ChapterID', function _callee7(req, res) {
+  var ChapterID, chapter;
+  return regeneratorRuntime.async(function _callee7$(_context7) {
+    while (1) {
+      switch (_context7.prev = _context7.next) {
+        case 0:
+          _context7.prev = 0;
+          ChapterID = req.params.ChapterID;
+          _context7.next = 4;
+          return regeneratorRuntime.awrap(Chapter.findOne({
+            where: {
+              ChapterID: ChapterID
+            }
+          }));
+
+        case 4:
+          chapter = _context7.sent;
+          _context7.next = 7;
+          return regeneratorRuntime.awrap(chapter.destroy());
+
+        case 7:
+          res.status(200).json({
+            message: " Success",
+            chapter: chapter
+          });
+          _context7.next = 13;
+          break;
+
+        case 10:
+          _context7.prev = 10;
+          _context7.t0 = _context7["catch"](0);
+          res.status(504).send(_context7.t0);
+
+        case 13:
+        case "end":
+          return _context7.stop();
       }
     }
   }, null, null, [[0, 10]]);

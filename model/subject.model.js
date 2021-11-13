@@ -59,7 +59,7 @@ const Subject = sequelize.define(
         Desired_grade: {
             type: DataTypes.STRING,
         },
-        StudentID: {
+        uid: {
             type: DataTypes.STRING,
         },
         SemesterID:{

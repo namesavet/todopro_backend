@@ -94,7 +94,7 @@ router.put('/update', async (req, res,) => {
         const {
             SemesterID,
             Semester_name,
-            StudentID, } = req.body;
+            uid, } = req.body;
 
         const semester = await Semester.findOne({
             where: {
@@ -105,7 +105,7 @@ router.put('/update', async (req, res,) => {
         semester.update({
             SemesterID,
             Semester_name,
-            StudentID,
+            uid,
         })
 
         res.status(200).json({

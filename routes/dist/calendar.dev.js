@@ -4,27 +4,27 @@ var express = require('express');
 
 var router = express.Router();
 
-var Semester = require("../model/semester.model");
+var Calendar = require("../model/calendar.model");
 
 var _require = require("uuid"),
     uuidv4 = _require.v4; // รับค่า
 
 
 router.get('/', function _callee(req, res) {
-  var semester;
+  var calendar;
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
           _context.next = 3;
-          return regeneratorRuntime.awrap(Semester.findAll());
+          return regeneratorRuntime.awrap(Calendar.findAll());
 
         case 3:
-          semester = _context.sent;
+          calendar = _context.sent;
           res.status(200).json({
             message: " Success",
-            semester: semester
+            calendar: calendar
           });
           _context.next = 10;
           break;
@@ -42,26 +42,26 @@ router.get('/', function _callee(req, res) {
   }, null, null, [[0, 7]]);
 }); // รับค่า
 
-router.get('/:uid', function _callee2(req, res) {
-  var uid, semester;
+router.get('/:SemesterID', function _callee2(req, res) {
+  var SemesterID, calendar;
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
           _context2.prev = 0;
-          uid = req.params.uid;
+          SemesterID = req.params.SemesterID;
           _context2.next = 4;
-          return regeneratorRuntime.awrap(Semester.findAll({
+          return regeneratorRuntime.awrap(Calendar.findAll({
             where: {
-              uid: uid
+              SemesterID: SemesterID
             }
           }));
 
         case 4:
-          semester = _context2.sent;
+          calendar = _context2.sent;
           res.status(200).json({
             message: " Success",
-            semester: semester
+            calendar: calendar
           });
           _context2.next = 11;
           break;
@@ -79,28 +79,27 @@ router.get('/:uid', function _callee2(req, res) {
   }, null, null, [[0, 8]]);
 }); // รับค่า
 
-router.get('/:uid/:SemesterID', function _callee3(req, res) {
-  var uid, SemesterID, semester;
+router.get('/findnote/:NoteID', function _callee3(req, res) {
+  var NoteID, calendar;
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
           _context3.prev = 0;
-          uid = req.params.uid;
-          SemesterID = req.params.SemesterID;
+          NoteID = req.params.NoteID;
+          console.log(NoteID);
           _context3.next = 5;
-          return regeneratorRuntime.awrap(Semester.findAll({
+          return regeneratorRuntime.awrap(Calendar.findOne({
             where: {
-              uid: uid,
-              SemesterID: SemesterID
+              NoteID: NoteID
             }
           }));
 
         case 5:
-          semester = _context3.sent;
+          calendar = _context3.sent;
           res.status(200).json({
             message: " Success",
-            semester: semester
+            calendar: calendar
           });
           _context3.next = 12;
           break;
@@ -119,23 +118,29 @@ router.get('/:uid/:SemesterID', function _callee3(req, res) {
 }); // create
 
 router.post('/create', function _callee4(req, res) {
-  var _req$body, Semester_name, uid, semester;
+  var _req$body, Note_title, Note_type, Note_location, Note_date, Note_time, Note_detail, StudentID, SemesterID, calendar;
 
   return regeneratorRuntime.async(function _callee4$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
           try {
-            _req$body = req.body, Semester_name = _req$body.Semester_name, uid = _req$body.uid;
-            semester = Semester.build({
-              SemesterID: uuidv4(),
-              Semester_name: Semester_name,
-              uid: uid
+            _req$body = req.body, Note_title = _req$body.Note_title, Note_type = _req$body.Note_type, Note_location = _req$body.Note_location, Note_date = _req$body.Note_date, Note_time = _req$body.Note_time, Note_detail = _req$body.Note_detail, StudentID = _req$body.StudentID, SemesterID = _req$body.SemesterID;
+            calendar = Calendar.build({
+              NoteID: uuidv4(),
+              Note_title: Note_title,
+              Note_type: Note_type,
+              Note_location: Note_location,
+              Note_date: Note_date,
+              Note_time: Note_time,
+              Note_detail: Note_detail,
+              StudentID: StudentID,
+              SemesterID: SemesterID
             });
-            semester.save();
+            calendar.save();
             res.status(200).json({
               message: "create Success",
-              data: semester
+              data: calendar
             });
           } catch (error) {
             res.status(504).send(error);
@@ -149,73 +154,77 @@ router.post('/create', function _callee4(req, res) {
   });
 }); // update
 
-router.put('/update', function _callee5(req, res) {
-  var _req$body2, SemesterID, Semester_name, uid, semester;
+router.put('/update/:NoteID', function _callee5(req, res) {
+  var NoteID, _req$body2, Note_title, Note_type, Note_location, Note_date, Note_time, Note_detail, calendar;
 
   return regeneratorRuntime.async(function _callee5$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
         case 0:
           _context5.prev = 0;
-          _req$body2 = req.body, SemesterID = _req$body2.SemesterID, Semester_name = _req$body2.Semester_name, uid = _req$body2.uid;
-          _context5.next = 4;
-          return regeneratorRuntime.awrap(Semester.findOne({
+          NoteID = req.params.NoteID;
+          _req$body2 = req.body, Note_title = _req$body2.Note_title, Note_type = _req$body2.Note_type, Note_location = _req$body2.Note_location, Note_date = _req$body2.Note_date, Note_time = _req$body2.Note_time, Note_detail = _req$body2.Note_detail;
+          _context5.next = 5;
+          return regeneratorRuntime.awrap(Calendar.findOne({
             where: {
-              SemesterID: SemesterID
+              NoteID: NoteID
             }
           }));
 
-        case 4:
-          semester = _context5.sent;
-          semester.update({
-            SemesterID: SemesterID,
-            Semester_name: Semester_name,
-            uid: uid
+        case 5:
+          calendar = _context5.sent;
+          calendar.update({
+            Note_title: Note_title,
+            Note_type: Note_type,
+            Note_location: Note_location,
+            Note_date: Note_date,
+            Note_time: Note_time,
+            Note_detail: Note_detail
           });
           res.status(200).json({
             message: "update Success",
-            semester: semester
+            calendar: calendar
           });
-          _context5.next = 12;
+          _context5.next = 13;
           break;
 
-        case 9:
-          _context5.prev = 9;
+        case 10:
+          _context5.prev = 10;
           _context5.t0 = _context5["catch"](0);
           res.status(504).send(_context5.t0);
 
-        case 12:
+        case 13:
         case "end":
           return _context5.stop();
       }
     }
-  }, null, null, [[0, 9]]);
+  }, null, null, [[0, 10]]);
 }); // delete
 
-router["delete"]('/delete/:SemesterID', function _callee6(req, res) {
-  var SemesterID, semester;
+router["delete"]('/delete/:NoteID', function _callee6(req, res) {
+  var NoteID, calendar;
   return regeneratorRuntime.async(function _callee6$(_context6) {
     while (1) {
       switch (_context6.prev = _context6.next) {
         case 0:
           _context6.prev = 0;
-          SemesterID = req.params.SemesterID;
+          NoteID = req.params.NoteID;
           _context6.next = 4;
-          return regeneratorRuntime.awrap(Semester.findOne({
+          return regeneratorRuntime.awrap(Calendar.findOne({
             where: {
-              SemesterID: SemesterID
+              NoteID: NoteID
             }
           }));
 
         case 4:
-          semester = _context6.sent;
+          calendar = _context6.sent;
           _context6.next = 7;
-          return regeneratorRuntime.awrap(semester.destroy());
+          return regeneratorRuntime.awrap(calendar.destroy());
 
         case 7:
           res.status(200).json({
             message: " Success",
-            semester: semester
+            calendar: calendar
           });
           _context6.next = 13;
           break;

@@ -42,6 +42,8 @@ router.get('/:SemesterID', async (req, res,) => {
   }
 
 });
+
+
 // รับค่า
 router.get('/findsubject/:SubjectID', async (req, res,) => {
 
@@ -64,14 +66,14 @@ router.get('/findsubject/:SubjectID', async (req, res,) => {
 
 });
 
-router.get('/studentsubject/:StudentID', async (req, res,) => {
+router.get('/studentsubject/:uid', async (req, res,) => {
 
   try {
-    const { StudentID } = req.params;
-    console.log(StudentID);
+    const { uid } = req.params;
+    console.log(uid);
     const subject = await Subject.findAll({
       where: {
-        StudentID,
+        uid,
       }
     });
 
@@ -105,7 +107,7 @@ router.post('/create', async (req, res,) => {
       Score_midterm,
       Score_final,
       Desired_grade,
-      StudentID,
+      uid,
       SemesterID,
     } = req.body;
 
@@ -128,7 +130,7 @@ router.post('/create', async (req, res,) => {
       Score_midterm,
       Score_final,
       Desired_grade,
-      StudentID,
+      uid,
       SemesterID,
 
     });
