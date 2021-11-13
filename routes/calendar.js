@@ -19,15 +19,16 @@ router.get('/', async (req, res,) => {
   }
 
 });
+
 // รับค่า
-router.get('/:SemesterID', async (req, res,) => {
+router.get('/getEvent/:uid', async (req, res,) => {
 
   try {
-    const { SemesterID } = req.params;
+    const { uid } = req.params;
 
     const calendar = await Calendar.findAll({
       where: {
-        SemesterID,
+        uid,
       }
     });
 
@@ -132,7 +133,7 @@ router.put('/update/:NoteID', async (req, res,) => {
       Note_date,
       Note_time,
       Note_detail,
-      
+
     })
 
     res.status(200).json({
