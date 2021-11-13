@@ -77,14 +77,53 @@ router.get('/:uid', function _callee2(req, res) {
       }
     }
   }, null, null, [[0, 8]]);
-}); // create
+}); // รับค่า
 
-router.post('/create', function _callee3(req, res) {
-  var _req$body, Semester_name, uid, semester;
-
+router.get('/:uid/:SemesterID', function _callee3(req, res) {
+  var uid, SemesterID, semester;
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.prev = 0;
+          uid = req.params.uid;
+          SemesterID = req.params.SemesterID;
+          _context3.next = 5;
+          return regeneratorRuntime.awrap(Semester.findAll({
+            where: {
+              uid: uid,
+              SemesterID: SemesterID
+            }
+          }));
+
+        case 5:
+          semester = _context3.sent;
+          res.status(200).json({
+            message: " Success",
+            semester: semester
+          });
+          _context3.next = 12;
+          break;
+
+        case 9:
+          _context3.prev = 9;
+          _context3.t0 = _context3["catch"](0);
+          res.status(504).send(_context3.t0);
+
+        case 12:
+        case "end":
+          return _context3.stop();
+      }
+    }
+  }, null, null, [[0, 9]]);
+}); // create
+
+router.post('/create', function _callee4(req, res) {
+  var _req$body, Semester_name, uid, semester;
+
+  return regeneratorRuntime.async(function _callee4$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
         case 0:
           try {
             _req$body = req.body, Semester_name = _req$body.Semester_name, uid = _req$body.uid;
@@ -104,63 +143,21 @@ router.post('/create', function _callee3(req, res) {
 
         case 1:
         case "end":
-          return _context3.stop();
+          return _context4.stop();
       }
     }
   });
 }); // update
 
-router.put('/update', function _callee4(req, res) {
+router.put('/update', function _callee5(req, res) {
   var _req$body2, SemesterID, Semester_name, StudentID, semester;
 
-  return regeneratorRuntime.async(function _callee4$(_context4) {
-    while (1) {
-      switch (_context4.prev = _context4.next) {
-        case 0:
-          _context4.prev = 0;
-          _req$body2 = req.body, SemesterID = _req$body2.SemesterID, Semester_name = _req$body2.Semester_name, StudentID = _req$body2.StudentID;
-          _context4.next = 4;
-          return regeneratorRuntime.awrap(Semester.findOne({
-            where: {
-              SemesterID: SemesterID
-            }
-          }));
-
-        case 4:
-          semester = _context4.sent;
-          semester.update({
-            SemesterID: SemesterID,
-            Semester_name: Semester_name,
-            StudentID: StudentID
-          });
-          res.status(200).json({
-            message: "update Success",
-            semester: semester
-          });
-          _context4.next = 12;
-          break;
-
-        case 9:
-          _context4.prev = 9;
-          _context4.t0 = _context4["catch"](0);
-          res.status(504).send(_context4.t0);
-
-        case 12:
-        case "end":
-          return _context4.stop();
-      }
-    }
-  }, null, null, [[0, 9]]);
-}); // delete
-
-router["delete"]('/delete/:SemesterID', function _callee5(req, res) {
-  var SemesterID, semester;
   return regeneratorRuntime.async(function _callee5$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
         case 0:
           _context5.prev = 0;
-          SemesterID = req.params.SemesterID;
+          _req$body2 = req.body, SemesterID = _req$body2.SemesterID, Semester_name = _req$body2.Semester_name, StudentID = _req$body2.StudentID;
           _context5.next = 4;
           return regeneratorRuntime.awrap(Semester.findOne({
             where: {
@@ -170,7 +167,49 @@ router["delete"]('/delete/:SemesterID', function _callee5(req, res) {
 
         case 4:
           semester = _context5.sent;
-          _context5.next = 7;
+          semester.update({
+            SemesterID: SemesterID,
+            Semester_name: Semester_name,
+            StudentID: StudentID
+          });
+          res.status(200).json({
+            message: "update Success",
+            semester: semester
+          });
+          _context5.next = 12;
+          break;
+
+        case 9:
+          _context5.prev = 9;
+          _context5.t0 = _context5["catch"](0);
+          res.status(504).send(_context5.t0);
+
+        case 12:
+        case "end":
+          return _context5.stop();
+      }
+    }
+  }, null, null, [[0, 9]]);
+}); // delete
+
+router["delete"]('/delete/:SemesterID', function _callee6(req, res) {
+  var SemesterID, semester;
+  return regeneratorRuntime.async(function _callee6$(_context6) {
+    while (1) {
+      switch (_context6.prev = _context6.next) {
+        case 0:
+          _context6.prev = 0;
+          SemesterID = req.params.SemesterID;
+          _context6.next = 4;
+          return regeneratorRuntime.awrap(Semester.findOne({
+            where: {
+              SemesterID: SemesterID
+            }
+          }));
+
+        case 4:
+          semester = _context6.sent;
+          _context6.next = 7;
           return regeneratorRuntime.awrap(semester.destroy());
 
         case 7:
@@ -178,17 +217,17 @@ router["delete"]('/delete/:SemesterID', function _callee5(req, res) {
             message: " Success",
             semester: semester
           });
-          _context5.next = 13;
+          _context6.next = 13;
           break;
 
         case 10:
-          _context5.prev = 10;
-          _context5.t0 = _context5["catch"](0);
-          res.status(504).send(_context5.t0);
+          _context6.prev = 10;
+          _context6.t0 = _context6["catch"](0);
+          res.status(504).send(_context6.t0);
 
         case 13:
         case "end":
-          return _context5.stop();
+          return _context6.stop();
       }
     }
   }, null, null, [[0, 10]]);
