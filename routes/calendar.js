@@ -76,7 +76,7 @@ router.post('/create', async (req, res,) => {
       Note_date,
       Note_time,
       Note_detail,
-      StudentID,
+      uid,
       SemesterID, } = req.body;
 
     const calendar = Calendar.build({
@@ -88,7 +88,7 @@ router.post('/create', async (req, res,) => {
       Note_date,
       Note_time,
       Note_detail,
-      StudentID,
+      uid,
       SemesterID,
     });
 
