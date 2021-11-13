@@ -130,7 +130,7 @@ router.get('/findsubject/:SubjectID', function _callee3(req, res) {
     }
   }, null, null, [[0, 9]]);
 });
-router.get('/studentsubject/:uid', function _callee4(req, res) {
+router.get('/studentsubject/:uid/', function _callee4(req, res) {
   var uid, subject;
   return regeneratorRuntime.async(function _callee4$(_context4) {
     while (1) {

@@ -19,7 +19,7 @@ const Score = sequelize.define(
 		SubjectID:{
 			type:DataTypes.STRING,
 		},
-		StudentID:{
+		uid:{
 			type:DataTypes.STRING,
 		},
 		SemesterID:{

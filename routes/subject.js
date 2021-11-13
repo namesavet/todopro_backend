@@ -25,10 +25,12 @@ router.get('/', async (req, res,) => {
 router.get('/:SemesterID', async (req, res,) => {
 
   try {
+
     const { SemesterID } = req.params;
 
     const subject = await Subject.findAll({
       where: {
+
         SemesterID,
       }
     });
@@ -66,7 +68,7 @@ router.get('/findsubject/:SubjectID', async (req, res,) => {
 
 });
 
-router.get('/studentsubject/:uid', async (req, res,) => {
+router.get('/studentsubject/:uid/', async (req, res,) => {
 
   try {
     const { uid } = req.params;
@@ -170,7 +172,7 @@ router.post('/createWithId/:addSubjectID', async (req, res,) => {
     addSubject.save();
 
     for (const iterator of chapter) { // วนค่าทั้งหมดของchapter แล้วadd เข้าไปใหม่
-      const { ChapterID, SubjectID, ...dataChapter } = iterator.dataValues 
+      const { ChapterID, SubjectID, ...dataChapter } = iterator.dataValues
       const addChapter = Chapter.build({
         ChapterID: uuidv4(),
         SubjectID: addSubject.SubjectID,

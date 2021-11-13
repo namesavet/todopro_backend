@@ -117,19 +117,19 @@ router.get('/findchapterSemester/:SemesterID', function _callee3(req, res) {
 }); // create
 
 router.post('/create', function _callee4(req, res) {
-  var _req$body, Chapter_name, Status, StudentID, SubjectID, SemesterID, chapter;
+  var _req$body, Chapter_name, Status, uid, SubjectID, SemesterID, chapter;
 
   return regeneratorRuntime.async(function _callee4$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
           try {
-            _req$body = req.body, Chapter_name = _req$body.Chapter_name, Status = _req$body.Status, StudentID = _req$body.StudentID, SubjectID = _req$body.SubjectID, SemesterID = _req$body.SemesterID;
+            _req$body = req.body, Chapter_name = _req$body.Chapter_name, Status = _req$body.Status, uid = _req$body.uid, SubjectID = _req$body.SubjectID, SemesterID = _req$body.SemesterID;
             chapter = Chapter.build({
               ChapterID: uuidv4(),
               Chapter_name: Chapter_name,
               Status: Status,
-              StudentID: StudentID,
+              uid: uid,
               SubjectID: SubjectID,
               SemesterID: SemesterID
             });
@@ -151,14 +151,14 @@ router.post('/create', function _callee4(req, res) {
 }); // update
 
 router.put('/update', function _callee5(req, res) {
-  var _req$body2, ChapterID, Chapter_name, Status, StudentID, SubjectID, SemesterID, chapter;
+  var _req$body2, ChapterID, Chapter_name, Status, uid, SubjectID, SemesterID, chapter;
 
   return regeneratorRuntime.async(function _callee5$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
         case 0:
           _context5.prev = 0;
-          _req$body2 = req.body, ChapterID = _req$body2.ChapterID, Chapter_name = _req$body2.Chapter_name, Status = _req$body2.Status, StudentID = _req$body2.StudentID, SubjectID = _req$body2.SubjectID, SemesterID = _req$body2.SemesterID;
+          _req$body2 = req.body, ChapterID = _req$body2.ChapterID, Chapter_name = _req$body2.Chapter_name, Status = _req$body2.Status, uid = _req$body2.uid, SubjectID = _req$body2.SubjectID, SemesterID = _req$body2.SemesterID;
           _context5.next = 4;
           return regeneratorRuntime.awrap(Chapter.findOne({
             where: {
@@ -171,7 +171,7 @@ router.put('/update', function _callee5(req, res) {
           chapter.update({
             Chapter_name: Chapter_name,
             Status: Status,
-            StudentID: StudentID,
+            uid: uid,
             SubjectID: SubjectID,
             SemesterID: SemesterID
           });

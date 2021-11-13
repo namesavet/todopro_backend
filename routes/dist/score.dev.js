@@ -116,21 +116,21 @@ router.get('/fineSemester/:SemesterID', function _callee3(req, res) {
 }); // create
 
 router.post('/create', function _callee4(req, res) {
-  var _req$body, Score_title, Get_point, Full_point, SubjectID, StudentID, SemesterID, score;
+  var _req$body, Score_title, Get_point, Full_point, SubjectID, uid, SemesterID, score;
 
   return regeneratorRuntime.async(function _callee4$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
           try {
-            _req$body = req.body, Score_title = _req$body.Score_title, Get_point = _req$body.Get_point, Full_point = _req$body.Full_point, SubjectID = _req$body.SubjectID, StudentID = _req$body.StudentID, SemesterID = _req$body.SemesterID;
+            _req$body = req.body, Score_title = _req$body.Score_title, Get_point = _req$body.Get_point, Full_point = _req$body.Full_point, SubjectID = _req$body.SubjectID, uid = _req$body.uid, SemesterID = _req$body.SemesterID;
             score = Score.build({
               ScoreID: uuidv4(),
               Score_title: Score_title,
               Get_point: Get_point,
               Full_point: Full_point,
               SubjectID: SubjectID,
-              StudentID: StudentID,
+              uid: uid,
               SemesterID: SemesterID
             });
             score.save();
@@ -151,14 +151,14 @@ router.post('/create', function _callee4(req, res) {
 }); // update
 
 router.put('/update', function _callee5(req, res) {
-  var _req$body2, ScoreID, Score_title, Get_point, Full_point, SubjectID, StudentID, SemesterID, score;
+  var _req$body2, ScoreID, Score_title, Get_point, Full_point, SubjectID, uid, SemesterID, score;
 
   return regeneratorRuntime.async(function _callee5$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
         case 0:
           _context5.prev = 0;
-          _req$body2 = req.body, ScoreID = _req$body2.ScoreID, Score_title = _req$body2.Score_title, Get_point = _req$body2.Get_point, Full_point = _req$body2.Full_point, SubjectID = _req$body2.SubjectID, StudentID = _req$body2.StudentID, SemesterID = _req$body2.SemesterID;
+          _req$body2 = req.body, ScoreID = _req$body2.ScoreID, Score_title = _req$body2.Score_title, Get_point = _req$body2.Get_point, Full_point = _req$body2.Full_point, SubjectID = _req$body2.SubjectID, uid = _req$body2.uid, SemesterID = _req$body2.SemesterID;
           _context5.next = 4;
           return regeneratorRuntime.awrap(Score.findOne({
             where: {
@@ -174,7 +174,7 @@ router.put('/update', function _callee5(req, res) {
             Get_point: Get_point,
             Full_point: Full_point,
             SubjectID: SubjectID,
-            StudentID: StudentID,
+            uid: uid,
             SemesterID: SemesterID
           });
           res.status(200).json({

@@ -70,7 +70,7 @@ router.post('/create', async (req, res,) => {
             Get_point,
             Full_point,
             SubjectID,
-            StudentID,
+            uid,
             SemesterID, } = req.body;
 
         const score = Score.build({
@@ -81,7 +81,7 @@ router.post('/create', async (req, res,) => {
             Get_point,
             Full_point,
             SubjectID,
-            StudentID,
+            uid,
             SemesterID,
         });
 
@@ -106,7 +106,7 @@ router.put('/update', async (req, res,) => {
             Get_point,
             Full_point,
             SubjectID,
-            StudentID,
+            uid,
             SemesterID,
         } = req.body;
 
@@ -122,7 +122,7 @@ router.put('/update', async (req, res,) => {
             Get_point,
             Full_point,
             SubjectID,
-            StudentID,
+            uid,
             SemesterID,
         })
 

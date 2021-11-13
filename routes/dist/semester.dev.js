@@ -79,43 +79,41 @@ router.get('/:uid', function _callee2(req, res) {
   }, null, null, [[0, 8]]);
 }); // รับค่า
 
-router.get('/:uid/:SemesterID', function _callee3(req, res) {
-  var uid, SemesterID, semester;
+router.get('/getSemester/:uid', function _callee3(req, res) {
+  var uid, semester;
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
           _context3.prev = 0;
           uid = req.params.uid;
-          SemesterID = req.params.SemesterID;
-          _context3.next = 5;
-          return regeneratorRuntime.awrap(Semester.findAll({
+          _context3.next = 4;
+          return regeneratorRuntime.awrap(Semester.findOne({
             where: {
-              uid: uid,
-              SemesterID: SemesterID
+              uid: uid
             }
           }));
 
-        case 5:
+        case 4:
           semester = _context3.sent;
           res.status(200).json({
             message: " Success",
             semester: semester
           });
-          _context3.next = 12;
+          _context3.next = 11;
           break;
 
-        case 9:
-          _context3.prev = 9;
+        case 8:
+          _context3.prev = 8;
           _context3.t0 = _context3["catch"](0);
           res.status(504).send(_context3.t0);
 
-        case 12:
+        case 11:
         case "end":
           return _context3.stop();
       }
     }
-  }, null, null, [[0, 9]]);
+  }, null, null, [[0, 8]]);
 }); // create
 
 router.post('/create', function _callee4(req, res) {

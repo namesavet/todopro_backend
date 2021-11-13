@@ -16,7 +16,7 @@ var Chapter = sequelize.define("chapter", {
   Status: {
     type: DataTypes.BOOLEAN
   },
-  StudentID: {
+  uid: {
     type: DataTypes.STRING
   },
   SubjectID: {

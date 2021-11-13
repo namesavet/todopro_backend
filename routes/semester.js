@@ -40,28 +40,6 @@ router.get('/:uid', async (req, res,) => {
     }
 
 });
-// รับค่า
-router.get('/:uid/:SemesterID', async (req, res,) => {
-
-    try {
-        const { uid } = req.params;
-        const { SemesterID } = req.params;
-        const semester = await Semester.findAll({
-            where: {
-                uid,
-                SemesterID
-            }
-        });
-       
-        res.status(200).json({
-            message: " Success",
-            semester,
-        });
-    } catch (error) {
-        res.status(504).send(error);
-    }
-
-});
 
 // รับค่า
 router.get('/getSemester/:uid', async (req, res,) => {
