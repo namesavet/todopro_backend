@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Semester = require("../model/semester.model");
+const Subject = require("../model/subject.model");
+const Chapter = require("../model/chapter.model");
+const Score = require("../model/score.model");
 const { v4: uuidv4 } = require("uuid")
 
 // รับค่า
@@ -153,6 +156,23 @@ router.delete('/delete/:SemesterID', async (req, res,) => {
         });
 
         await semester.destroy();
+
+
+        await Subject.destroy({
+            where: {
+                SemesterID
+            },
+          });
+        await Chapter.destroy({
+            where: {
+                SemesterID
+            },
+          });
+          await Score.destroy({
+            where: {
+                SemesterID
+            },
+          });
 
         res.status(200).json({
             message: " Success",

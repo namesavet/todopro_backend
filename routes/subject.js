@@ -149,44 +149,44 @@ router.post('/create', async (req, res,) => {
 });
 router.post('/createWithId/:addSubjectID/:addUid/:addSemester', async (req, res,) => {
   try {
+
     const { addSubjectID, addUid, addSemester } = req.params
+    
     const subject = await Subject.findOne({
       where: {
         SubjectID: addSubjectID,
-        uid: addUid,
-        SemesterID: addSemester,
+        
       }
     })
 
     const chapter = await Chapter.findAll({
       where: {
         SubjectID: addSubjectID,
-        uid: addUid,
-        SemesterID: addSemester,
       }
     })
     const { SubjectID, uid, SemesterID, ...dataSubject } = subject.dataValues
     const addSubject = Subject.build({
       SubjectID: uuidv4(),
-      uid,
-      SemesterID,
+      uid: addUid,
+      SemesterID: addSemester,
       ...dataSubject,
     });
 
     addSubject.save();
 
-    for (const iterator of chapter) {                                                                            // วนค่าทั้งหมดของchapter แล้วadd เข้าไปใหม่
+    for (const iterator of chapter) {                                                                          
       const { ChapterID, SubjectID, uid, SemesterID, ...dataChapter } = iterator.dataValues
       const addChapter = Chapter.build({
         ChapterID: uuidv4(),
         SubjectID: addSubject.SubjectID,
-        uid: addSubject.uid,
-        SemesterID: addSubject.SemesterID,
-        ...dataChapter,                                                                                         //ค่าทั้งหมดจะถูกเก็บอยู่ในนี้
+        uid: addUid,
+        SemesterID: addSemester,
+        ...dataChapter,                                                                                       
       });
       addChapter.save();
     }
 
+    console.log(subject);
 
 
     res.status(200).json({
@@ -194,6 +194,7 @@ router.post('/createWithId/:addSubjectID/:addUid/:addSemester', async (req, res,
       data: subject,
     });
   } catch (error) {
+    console.log(error.message);
     res.status(504).send(error);
   }
 
