@@ -40,6 +40,26 @@ router.get('/:uid', async (req, res,) => {
     }
 
 });
+router.get('/findSemester/:SemesterID', async (req, res,) => {
+
+    try {
+        const { SemesterID } = req.params;
+
+        const semester = await Semester.findOne({
+            where: {
+                SemesterID,
+            }
+        });
+
+        res.status(200).json({
+            message: " Success",
+            semester,
+        });
+    } catch (error) {
+        res.status(504).send(error);
+    }
+
+});
 
 // รับค่า
 router.get('/getSemester/:uid', async (req, res,) => {
