@@ -147,36 +147,42 @@ router.post('/create', async (req, res,) => {
   }
 
 });
-router.post('/createWithId/:addSubjectID', async (req, res,) => {
+router.post('/createWithId/:addSubjectID/:addUid/:addSemester', async (req, res,) => {
   try {
-    const { addSubjectID } = req.params
-
+    const { addSubjectID, addUid, addSemester } = req.params
     const subject = await Subject.findOne({
       where: {
         SubjectID: addSubjectID,
-        
+        uid: addUid,
+        SemesterID: addSemester,
       }
     })
 
     const chapter = await Chapter.findAll({
       where: {
         SubjectID: addSubjectID,
+        uid: addUid,
+        SemesterID: addSemester,
       }
     })
-    const { SubjectID, ...dataSubject } = subject.dataValues
+    const { SubjectID, uid, SemesterID, ...dataSubject } = subject.dataValues
     const addSubject = Subject.build({
       SubjectID: uuidv4(),
+      uid,
+      SemesterID,
       ...dataSubject,
     });
 
     addSubject.save();
 
-    for (const iterator of chapter) { // วนค่าทั้งหมดของchapter แล้วadd เข้าไปใหม่
-      const { ChapterID, SubjectID, ...dataChapter } = iterator.dataValues
+    for (const iterator of chapter) {                                                                            // วนค่าทั้งหมดของchapter แล้วadd เข้าไปใหม่
+      const { ChapterID, SubjectID, uid, SemesterID, ...dataChapter } = iterator.dataValues
       const addChapter = Chapter.build({
         ChapterID: uuidv4(),
         SubjectID: addSubject.SubjectID,
-        ...dataChapter,//ค่าทั้งหมดจะถูกเก็บอยู่ในนี้
+        uid: addSubject.uid,
+        SemesterID: addSubject.SemesterID,
+        ...dataChapter,                                                                                         //ค่าทั้งหมดจะถูกเก็บอยู่ในนี้
       });
       addChapter.save();
     }
