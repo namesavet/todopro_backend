@@ -147,7 +147,7 @@ router.post('/create', async (req, res,) => {
   }
 
 });
-router.post('/createWithId/:addSubjectID/', async (req, res,) => {
+router.post('/createWithId/:addSubjectID', async (req, res,) => {
   try {
     const { addSubjectID } = req.params
 
